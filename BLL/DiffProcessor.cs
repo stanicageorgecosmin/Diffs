@@ -132,11 +132,9 @@ namespace BLL
             string rightPartFilePath,
             long sizeOfContentToBeProcessed)
         {
-            using (var leftReader = new StreamReader(leftPartFilePath))
-            using (var rightReader = new StreamReader(rightPartFilePath))
-            using (var blockingCollection = new BlockingCollection<BufferBlock>(MaxNumberOfProducerConsumerItems))
+
+            using (var blockingCollection = ProduceBufferBlocksCollection(leftPartFilePath, rightPartFilePath))
             {
-                ReadSegmentsOfDataAndProduceToCollection(leftReader, rightReader, blockingCollection);
                 var differencesCountsByOffset =
                     await ProcessSegmentsOfDataByConsumingFromrCollectionAsync(blockingCollection);
 
@@ -207,38 +205,38 @@ namespace BLL
             return differencesCountsByOffset;
         }
 
-        /// <summary>
-        /// Reads the segments of data and produce to collection.
-        /// </summary>
-        /// <param name="leftReader">The left reader.</param>
-        /// <param name="rightReader">The right reader.</param>
-        /// <param name="blockingCollection">The blocking collection.</param>
-        private void ReadSegmentsOfDataAndProduceToCollection(StreamReader leftReader, StreamReader rightReader, BlockingCollection<BufferBlock> blockingCollection)
+        private BlockingCollection<BufferBlock> ProduceBufferBlocksCollection(string leftPartFilePath,
+            string rightPartFilePath)
         {
+            var blockingCollection = new BlockingCollection<BufferBlock>(MaxNumberOfProducerConsumerItems);
             Task.Run(async () =>
             {
                 try
                 {
-                    int index = 0;
-                    while (!leftReader.EndOfStream && !rightReader.EndOfStream)
+                    using (var leftReader = new StreamReader(leftPartFilePath))
+                    using (var rightReader = new StreamReader(rightPartFilePath))
                     {
-                        var leftPartBuffer = new char[MaxNumberOfCharsToBeProcessedAtOnce];
-                        var rightPartBuffer = new char[MaxNumberOfCharsToBeProcessedAtOnce];
-                        int leftNumberOfChars = await leftReader.ReadBlockAsync(leftPartBuffer, 0, MaxNumberOfCharsToBeProcessedAtOnce);
+                        int index = 0;
+                        while (!leftReader.EndOfStream && !rightReader.EndOfStream)
+                        {
+                            var leftPartBuffer = new char[MaxNumberOfCharsToBeProcessedAtOnce];
+                            var rightPartBuffer = new char[MaxNumberOfCharsToBeProcessedAtOnce];
+                            int leftNumberOfChars =
+                                await leftReader.ReadBlockAsync(leftPartBuffer, 0, MaxNumberOfCharsToBeProcessedAtOnce);
 
-                        int rightNumberOfChars = await rightReader.ReadBlockAsync(rightPartBuffer, 0,
-                            MaxNumberOfCharsToBeProcessedAtOnce);
+                            int rightNumberOfChars = await rightReader.ReadBlockAsync(rightPartBuffer, 0,
+                                MaxNumberOfCharsToBeProcessedAtOnce);
 
-                        blockingCollection.Add(new BufferBlock
+                            blockingCollection.Add(new BufferBlock
                             {
                                 OffsetInFile = index,
                                 NumberOfReadChars = leftNumberOfChars,
                                 LeftBuffer = leftPartBuffer,
                                 RightBuffer = rightPartBuffer
-                            }
-                        );
+                            });
 
-                        index += MaxNumberOfCharsToBeProcessedAtOnce;
+                            index += MaxNumberOfCharsToBeProcessedAtOnce;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -251,6 +249,8 @@ namespace BLL
                     blockingCollection.CompleteAdding();
                 }
             });
+
+            return blockingCollection;
         }
 
         /// <summary>
