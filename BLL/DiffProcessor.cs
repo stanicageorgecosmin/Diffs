@@ -348,7 +348,8 @@ namespace BLL
             if (projectedEntity == null)
                 throw new ArgumentNullException($"'{nameof(projectedEntity)}' parameter is null");
 
-            if (projectedEntity == null)
+            if (string.IsNullOrEmpty(projectedEntity.LeftPartFilePath) ||
+                string.IsNullOrEmpty(projectedEntity.RightPartFilePath))
                 throw new ArgumentException($"'{nameof(projectedEntity)}' parameter has invalid properties");
 
             if (!File.Exists(projectedEntity.LeftPartFilePath))
