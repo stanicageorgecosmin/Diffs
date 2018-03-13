@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="DiffsMetadata.cs" />
     <Compile Include="Enumerations.cs" />
-    <Compile Include="Feedback.cs" />
+    <Compile Include="FeedbackTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

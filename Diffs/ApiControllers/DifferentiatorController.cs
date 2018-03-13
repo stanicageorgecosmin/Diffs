@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
 using BLL;
 using BusinessSupport;
 
-namespace Diffs.Controllers
+namespace DiffsApi.ApiControllers
 {
     public class DifferentiatorController : ApiController
     {
@@ -14,8 +12,7 @@ namespace Diffs.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        [System.Web.Http.HttpPost]
-        [HandleError]
+        [HttpPost]
         public async Task<Feedback> SetLeftPartAsync([FromUri] int id)
         {
             using (var stream = await Request.Content.ReadAsStreamAsync())
@@ -33,8 +30,7 @@ namespace Diffs.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        [System.Web.Http.HttpPost]
-        [HandleError]
+        [HttpPost]
         public async Task<Feedback> SetRightPartAsync([FromUri] int id)
         {
             using (var stream = await Request.Content.ReadAsStreamAsync())
@@ -52,7 +48,6 @@ namespace Diffs.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        [HandleError]
         public async Task<CalculatedDiffsFeedback> GetDiffResultsAsync([FromUri] int id)
         {
             using (var processor = new DiffProcessor())
