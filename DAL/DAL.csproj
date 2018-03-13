@@ -63,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Constants\DataTablesNamesConstants.cs" />
     <Compile Include="DiffDataContext.cs" />
     <Compile Include="Entities\DiffPartsEntity.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -78,7 +78,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Enumerations\BusinessSupport.csproj">
+    <ProjectReference Include="..\Common\BusinessSupport.csproj">
       <Project>{2b4b6ebc-a351-402c-b202-4d49aff98e17}</Project>
       <Name>BusinessSupport</Name>
     </ProjectReference>

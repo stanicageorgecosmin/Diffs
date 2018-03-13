@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Constants
 {
-    public class DataTablesNames
+    public class DataTablesNamesConstants
     {
         public const string DiffParts = "DiffParts";
     }

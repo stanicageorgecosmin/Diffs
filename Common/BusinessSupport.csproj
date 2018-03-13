@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DiffsMetadata.cs" />
     <Compile Include="Enumerations.cs" />
     <Compile Include="FeedbackTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

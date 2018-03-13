@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FE6A9CA1-2B46-4994-8CA1-026DCE02DE7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessSupport", "Enumerations\BusinessSupport.csproj", "{2B4B6EBC-A351-402C-B202-4D49AFF98E17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessSupport", "Common\BusinessSupport.csproj", "{2B4B6EBC-A351-402C-B202-4D49AFF98E17}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectedEntities", "ProjectedEntities\ProjectedEntities.csproj", "{F9126C1C-49D6-4C23-84EB-BD2312B95A78}"
 EndProject

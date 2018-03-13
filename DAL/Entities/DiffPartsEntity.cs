@@ -7,7 +7,7 @@ using DAL.Interfaces;
 
 namespace DAL.Entities
 {
-    [Table(DataTablesNames.DiffParts)]
+    [Table(DataTablesNamesConstants.DiffParts)]
     public class DiffPartsEntity : IEntity<int>
     {
         [Key]

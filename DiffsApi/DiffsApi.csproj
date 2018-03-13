@@ -180,7 +180,7 @@
       <Project>{7003105b-df2c-4446-884b-b20962dc3a34}</Project>
       <Name>BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Enumerations\BusinessSupport.csproj">
+    <ProjectReference Include="..\Common\BusinessSupport.csproj">
       <Project>{2B4B6EBC-A351-402C-B202-4D49AFF98E17}</Project>
       <Name>BusinessSupport</Name>
     </ProjectReference>
